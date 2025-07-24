@@ -1,0 +1,16 @@
+INSERT INTO [fact].[CUSTOMER_REVENUE]
+SELECT
+    a.[CUSTOMER_ID]
+    , b.[NAME]
+    , b.[EMAIL]
+    , b.[ADDRESS]
+    , SUM(a.[AMOUNT]) AS TOTAL_AMOUNT
+FROM 
+    [fact].[TRANSACTIONS] AS a
+LEFT JOIN 
+    [dim].[CUSTOMERS] AS b ON a.CUSTOMER_ID = b.CUSTOMER_ID
+GROUP BY
+    a.[CUSTOMER_ID]
+    , b.[NAME]
+    , b.[EMAIL]
+    , b.[ADDRESS]
